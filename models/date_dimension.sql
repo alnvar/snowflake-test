@@ -2,13 +2,9 @@ WITH CTE AS (
     SELECT
         DATE(TO_TIMESTAMP(STARTED_AT)),
         MONTH(TO_TIMESTAMP(STARTED_AT)),
-        CASE WHEN DAYNAME(TO_TIMESTAMP(STARTED_AT)) IN ('Sat','Sun')
-        THEN 'Weekend'
-        ELSE 'Weekday' END,
-        CASE WHEN MONTH(TO_TIMESTAMP(STARTED_AT)) IN (12,1,2) THEN 'Winter'
-            WHEN MONTH(TO_TIMESTAMP(STARTED_AT)) IN (3,4,5) THEN 'Spring'
-            WHEN MONTH(TO_TIMESTAMP(STARTED_AT)) IN (6,7,8) THEN 'Summer'
-            WHEN MONTH(TO_TIMESTAMP(STARTED_AT)) IN (9,10,11) THEN 'Fall' END
+        {{GET_DAYTYPE('STARTED_AT')}},
+        {{GET_SEASON('STARTED_AT')}},
+        {{GET_ACTUALDATE('STARTED_AT')}}
         --ROW_NUMBER() OVER (PARTITION BY 1 ORDER BY 1 ASC) AS rn
     FROM {{ source('demo', 'bike') }}
 
