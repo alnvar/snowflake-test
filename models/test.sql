@@ -1,4 +1,3 @@
 select *
 from {{ source("demo", "bike") }}
---from {{ ref('model file name') }}
---limit 10
+--another way to reference models from this project: ref('model file name')
