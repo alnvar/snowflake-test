@@ -8,7 +8,6 @@ WITH TRIPS AS (
         member_causal,
         TIMESTAMPDIFF(second,TO_TIMESTAMP(ended_at),TO_TIMESTAMP(started_at)) as TRIP_DURATION_SECONDS
     FROM {{ source('demo', 'bike') }}
-    limit 10
 )
 SELECT *
 FROM TRIPS
